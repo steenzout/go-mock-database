@@ -50,7 +50,9 @@ func (db *DB) Driver() driver.Driver {
 
 // Query mock.
 func (db *DB) Query(query string, args ...interface{}) (*sql.Rows, error) {
-	out := db.Called(query, args...)
+	slice := make([]interface{}, 1)
+	slice[0] = query
+	out := db.Called(append(slice, args...))
 	return out.Get(0).(*sql.Rows), out.Error(1)
 }
 
@@ -68,9 +70,10 @@ func (db *DB) Prepare(query string) (*sql.Stmt, error) {
 
 // QueryRow mock.
 func (db *DB) QueryRow(query string, args ...interface{}) *sql.Row {
-	out := db.Called(query, args...)
+	slice := make([]interface{}, 1)
+	slice[0] = query
+	out := db.Called(append(slice, args...))
 	return out.Get(0).(*sql.Row)
-
 }
 
 // SetConnMaxLifetime mock.
