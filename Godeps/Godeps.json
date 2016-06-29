@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/steenzout/go-primogen",
+	"ImportPath": "github.com/steenzout/go-mock-database",
 	"GoVersion": "go1.6",
 	"GodepVersion": "v74",
 	"Deps": []
