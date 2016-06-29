@@ -91,3 +91,58 @@ func (db *DB) Stats() sql.DBStats {
 	out := db.Called()
 	return out.Get(0).(sql.DBStats)
 }
+
+// Tx mock.
+type Tx struct {
+	mock.Mock
+}
+
+// Commit mock.
+func (tx *Tx) Commit() error {
+	out := tx.Called()
+	return out.Error(0)
+}
+
+// Rollback mock.
+func (tx *Tx) Rollback() error {
+	out := tx.Called()
+	return out.Error(0)
+}
+
+// Prepare mock.
+func (tx *Tx) Prepare(query string) (*sql.Stmt, error) {
+	out := tx.Called(query)
+	return out.Get(0).(*sql.Stmt), out.Error(1)
+
+}
+
+// Stmt mock.
+func (tx *Tx) Stmt(stmt *sql.Stmt) *sql.Stmt {
+	out := tx.Called(stmt)
+	return out.Get(0).(*sql.Stmt)
+}
+
+// Exec mock.
+func (tx *Tx) Exec(query string, args ...interface{}) (sql.Result, error) {
+	slice := make([]interface{}, 1)
+	slice[0] = query
+	out := tx.Called(append(slice, args...))
+	return out.Get(0).(sql.Result), out.Error(1)
+}
+
+// Query mock.
+func (tx *Tx) Query(query string, args ...interface{}) (*sql.Rows, error) {
+	slice := make([]interface{}, 1)
+	slice[0] = query
+	out := tx.Called(append(slice, args...))
+	return out.Get(0).(*sql.Rows), out.Error(1)
+}
+
+// QueryRow mock.
+func (tx *Tx) QueryRow(query string, args ...interface{}) *sql.Row {
+	slice := make([]interface{}, 1)
+	slice[0] = query
+	out := tx.Called(append(slice, args...))
+	return out.Get(0).(*sql.Row)
+
+}
