@@ -6,3 +6,6 @@
 
 Mock packaged for the [golang.org database](https://golang.org/pkg/database/) package.
 
+
+[license]:  https://raw.githubusercontent.com/steenzout/go-mock-database/master/LICENSE   "Apache License 2.0"
+
